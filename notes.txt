@@ -1,0 +1,27 @@
+So... from looking through the samples and the corresponding output from terminal
+it seems like the case where the transition is transitioning to itself when it doesn't
+already exist in stateArr is producing some buggy behavior. Gonna have to code for this
+case or the whole thing is gonna shit it's pants :/ - probably gonna work more on this
+tomorrow it's getting kind of late today might drink some chamomile and relax. 
+- 9/12/2022 | 9:56 PM
+
+OK seems like other buggy case is when there is a transition to a state does not yet exist
+in stateArr but it is not also the from state. Gonna have to fix that too tomorrow.
+Otherwise we should be boolin... Hopefully.
+- 9/12/2022 | 9:59 PM
+
+Seems like the problem lies between lines 92-108. 
+- 9/12/2022 | 10:01 PM
+
+Need to figure out if line 83 should be finding states in the array by pointer.
+Feel like I remember Mike saying something about this making a copy and not referencing 
+the actual value.
+- 9/14/22 | 8:10 PM
+
+Just emailed Mike - remember to check if he responds
+- 9/14/22 - 8:16 PM
+
+Probably gonna have to do the old method where it was a vector containing
+vectors - the pairs are probably fucking it up.
+- 9/16/22 | 2:24 PM
+
