@@ -17,11 +17,11 @@ class State{
         bool isAccept = false;
 
     public:
-        vector<pair<string, State>> transitions;
+        vector<vector<string>> transitions;
         State();
         State(int Num, bool Start, bool Accept);
 
-        void addTransition(pair<string, State> transition_pair);
+        void addTransition(vector<string> transition);
         bool checkStateNum(int num);
         void setStart(bool start);
         void setAccept(bool accept);

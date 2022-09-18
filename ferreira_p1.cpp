@@ -55,12 +55,15 @@ int main(int argc, char * argv[]){
 
 			}else{
 				
+				string temp_str;
 				string tmp, from, symbol, to;
-				pair<string, State> transition;
+				// pair<string, State> transition;
+
+				vector<string> transition;
 
 				s >> tmp >> from >> symbol >> to;
 
-				transition.first = symbol;
+				transition.push_back(temp_str + symbol);
 				State transitionState;
 
 				
@@ -69,21 +72,18 @@ int main(int argc, char * argv[]){
 					//LOOKS THROUGH STATE ARR TO CHECK IF FROM STATE EXISTS INSIDE OF IT
 				}
 
+				
 				if(getState(stoi(to), stateArr).getNum() == -1){
 					transitionState.setNum(stoi(to));
 					stateArr.push_back(transitionState);
-					transition.second = transitionState;
-					
-					
-				}else{
-					transition.second = getState(stoi(to), stateArr);
 				}
+				transition.push_back(temp_str + to);
 
-				// newState.addTransition(transition);
 				getState(stoi(from), stateArr).transitions.push_back(transition);
+				// getState(stoi(from), stateArr).transitions.push_back(transition);
 				//Should this be by pointer?
 
-				cout << from << " -> " << transition.first << " -> " << transition.second.getNum() << endl;
+				cout << from << " -> " << transition[0] << " -> " << transition[1] << endl;
 				
 				
 
@@ -105,6 +105,9 @@ int main(int argc, char * argv[]){
 		stateArr[i].print();
 	}
 	inputFile.close();
+	cout << getState(1, stateArr).transitions.size() << endl;
+
+	
 }
 
 	/*
