@@ -23,6 +23,7 @@ bool FSM::run(string input){
             currStates[j]->getNextStates(input[i], currStates);
             currStates.erase(currStates.begin() + j - 1);
         }
+        
     }
     string acceptedString = "reject";
     for(int i = 0; i < currStates.size(); i++){
