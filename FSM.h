@@ -11,12 +11,13 @@ using namespace std;
 
 class FSM{
     private:
-        vector<State> stateVec;
+        vector<State *> stateVec;
+        vector<State *> currentStates;
 
     public:
         FSM();
-        FSM(vector<State> inputStates);
-        bool run();
+        FSM(vector<State *> inputStates);
+        bool run(string input);
 };
 
     

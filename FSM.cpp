@@ -8,16 +8,33 @@
 using namespace std;
 
 FSM::FSM(){
-    vector<State> stateVec;
-   
+      
 }
 
-FSM::FSM(vector<State> inputStates){
+FSM::FSM(vector<State *> inputStates){
     stateVec = inputStates;
 }
 
-bool FSM::run(){
-    vector<State> currStates;
-    
+bool FSM::run(string input){
+    vector<State *> currStates;
+    stateVec[0]->getNextStates(input[0], currStates);
+    for(int i = 1; i < input.size(); i++){
+        for(int j = 0; j < currStates.size(); j++){
+            currStates[j]->getNextStates(input[i], currStates);
+            currStates.erase(currStates.begin() + j - 1);
+        }
+    }
+    string acceptedString = "reject";
+    for(int i = 0; i < currStates.size(); i++){
+        if(currStates[i]->getAccept() == true){
+            acceptedString = "accept";
+        }
+    }
+    cout << acceptedString << " ";
+    for(int i = 0; i < currStates.size(); i++){
+        cout << currStates[i]->getNum() << " ";
+    }
+    cout << endl;
+
     return true;
 }

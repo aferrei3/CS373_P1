@@ -2,6 +2,7 @@ state	1	start
 state	4	accept
 state	5	accept
 state	6	accept
+
 transition	1	0	1
 transition	1	1	2
 

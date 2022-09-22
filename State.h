@@ -17,11 +17,11 @@ class State{
         bool isAccept = false;
 
     public:
-        vector<pair<string, State *>> transitions;
+        vector<pair<char, State *>> transitions;
         State();
         State(int Num, bool Start, bool Accept);
 
-        void addTransition(pair<string, State *> transition);
+        void addTransition(pair<char, State *> transition);
         bool checkStateNum(int num);
         void setStart(bool start);
         void setAccept(bool accept);
@@ -29,7 +29,7 @@ class State{
         int getNum();
         bool getStart();
         bool getAccept();
-        void getNextStates(string symbol, vector<int> &currStates);
+        void getNextStates(char symbol, vector<State *> &currStates);
         
         // Have to find a way to get the state by number - don't know if it would necessarily be a good idea for this file.
 

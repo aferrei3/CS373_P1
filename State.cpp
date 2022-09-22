@@ -24,9 +24,8 @@ State::State(int Num, bool Start, bool Accept){
     isAccept = Accept;
 }
 
-void State::addTransition(pair<string, State *> transition){
+void State::addTransition(pair<char, State *> transition){
     transitions.push_back(transition);
-    cout << "pair " << transition.first << "," << transition.second->getNum() << " added" << endl;
 }
 
 bool State::checkStateNum(int num){
@@ -66,16 +65,13 @@ bool State::getAccept(){
     return isAccept;
 }
 
-// void State::getNextStates(string symbol, vector<int> &currStates){
-//     for(int i = 0; i < transitions.size();i++){
-//         if(transitions[i][0] == symbol) currStates.push_back(stoi(transitions[i][1]));
-//     }
-//     sort(currStates.begin(), currStates.end());
-//     auto last = unique(currStates.begin(), currStates.end());
-//     currStates.erase(last, currStates.end());
-
-
-// }
+void State::getNextStates(char symbol, vector<State *> &currStates){
+    for(int i = 0; i < transitions.size(); i++){
+        if(transitions[i].first == symbol){
+            currStates.push_back(transitions[i].second);
+        }
+    }
+}
 
 
 

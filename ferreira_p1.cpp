@@ -61,11 +61,11 @@ int main(int argc, char * argv[]){
 				string tmp, from, symbol, to;
 				// pair<string, State> transition;
 
-				pair<string, State *> transition;
+				pair<char, State *> transition;
 
 				s >> tmp >> from >> symbol >> to;
 
-				transition.first = temp_str + symbol;
+				transition.first = symbol[0];
 				State * transitionState = new State;
 
 				
@@ -102,6 +102,14 @@ int main(int argc, char * argv[]){
 		stateArr[i]->print();
 	}
 	inputFile.close();
+
+	FSM FSM1(stateArr);
+	FSM1.run(inputString);
+
+
+
+	
+	
 
 	
 }
