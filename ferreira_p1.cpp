@@ -1,3 +1,4 @@
+
 #include <stdlib.h>
 #include <iostream>
 #include <string>
@@ -11,13 +12,14 @@
 
 using namespace std;
 
-State getState(int num, vector<State> stateVec){
+State * getState(int num, vector<State *> stateVec){
 	for(int i = 0; i < stateVec.size(); i++){
-		if(stateVec[i].getNum() == num){
+		if(stateVec[i]->getNum() == num){
 			return stateVec[i];
 		}
 	}
-	return State();
+	State * nullState = new State(-1, false, false);
+	return nullState;
 }
 
 int main(int argc, char * argv[]){
@@ -25,7 +27,7 @@ int main(int argc, char * argv[]){
 	fstream inputFile;
 	string inputString = argv[2];
 	//initialize the mega array of states its gonna have 1001 entries
-	vector<State> stateArr;
+	vector<State *> stateArr;
 	
 	inputFile.open(argv[1], ios::in);
 
@@ -38,9 +40,9 @@ int main(int argc, char * argv[]){
 		while(getline(inputFile, tp)){
 			stringstream s(tp);
 
-			State newState;
+			State * newState = new State;
 
-			if(tp.find("transition") == string::npos){
+			if(tp.find("state") != string::npos){
 				int stateNum;
 				string tmp;
 				bool startState = false;
@@ -48,10 +50,10 @@ int main(int argc, char * argv[]){
 
 				s >> tmp >> stateNum;
 				
-				newState.setNum(stateNum);
+				newState->setNum(stateNum);
 				
-				if(tp.find("start") != string::npos) newState.setStart(true);
-				if(tp.find("accept") != string::npos) newState.setAccept(true);
+				if(tp.find("start") != string::npos) newState->setStart(true);
+				if(tp.find("accept") != string::npos) newState->setAccept(true);
 
 			}else{
 				
@@ -59,42 +61,37 @@ int main(int argc, char * argv[]){
 				string tmp, from, symbol, to;
 				// pair<string, State> transition;
 
-				vector<string> transition;
+				pair<string, State *> transition;
 
 				s >> tmp >> from >> symbol >> to;
 
-				transition.push_back(temp_str + symbol);
-				State transitionState;
+				transition.first = temp_str + symbol;
+				State * transitionState = new State;
 
 				
-				if(getState(stoi(from), stateArr).getNum() == -1){
-					newState.setNum(stoi(from));
+				if(getState(stoi(from), stateArr)->getNum() == -1){
+					newState->setNum(stoi(from));
 					//LOOKS THROUGH STATE ARR TO CHECK IF FROM STATE EXISTS INSIDE OF IT
 				}
 
 				
-				if(getState(stoi(to), stateArr).getNum() == -1){
-					transitionState.setNum(stoi(to));
+				if(getState(stoi(to), stateArr)->getNum() == -1){
+					transitionState->setNum(stoi(to));
 					stateArr.push_back(transitionState);
 				}
-				transition.push_back(temp_str + to);
+				transition.second = getState(stoi(to), stateArr);
 
-				getState(stoi(from), stateArr).transitions.push_back(transition);
+				getState(stoi(from), stateArr)->addTransition(transition);
 				// getState(stoi(from), stateArr).transitions.push_back(transition);
 				//Should this be by pointer?
 
-				cout << from << " -> " << transition[0] << " -> " << transition[1] << endl;
+				std::cout << from << " -> " << transition.first << " -> " << transition.second->getNum() << endl;
 				
-				
-
-				
-
-
-
+	
 			
 			}
 			
-			if(newState.getNum() != -1){
+			if(newState->getNum() != -1 && getState(newState->getNum(), stateArr)->getNum() != newState->getNum()){
 				stateArr.push_back(newState);
 			}
 
@@ -102,10 +99,9 @@ int main(int argc, char * argv[]){
 	
 	}
 	for(int i = 0; i < stateArr.size();i++){
-		stateArr[i].print();
+		stateArr[i]->print();
 	}
 	inputFile.close();
-	cout << getState(1, stateArr).transitions.size() << endl;
 
 	
 }

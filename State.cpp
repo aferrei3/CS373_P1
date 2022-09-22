@@ -24,9 +24,9 @@ State::State(int Num, bool Start, bool Accept){
     isAccept = Accept;
 }
 
-void State::addTransition(vector<string> transition){
+void State::addTransition(pair<string, State *> transition){
     transitions.push_back(transition);
-    cout << "pair " << transition[0] << "," << transition[1] << " added" << endl;
+    cout << "pair " << transition.first << "," << transition.second->getNum() << " added" << endl;
 }
 
 bool State::checkStateNum(int num){
@@ -49,7 +49,7 @@ void State::setNum(int num){
 void State::print(){
     cout << "( " << "State: " << stateNum << " | Start: " << isStart << " | Accept: " << isAccept << " |";
     for(int i = 0; i < transitions.size();i++){
-        cout << "["  << transitions[i][0] << " -> " << transitions[i][1] << "] ";
+        cout << "["  << transitions[i].first << " -> " << transitions[i].second->getNum() << "] ";
     }
     cout << ")" << endl;
 }
