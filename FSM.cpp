@@ -33,6 +33,7 @@ bool FSM::run(string input){
         }
     }
     cout << acceptedString << " ";
+    
     for(int i = 0; i < currStates.size(); i++){
         cout << currStates[i]->getNum() << " ";
     }
