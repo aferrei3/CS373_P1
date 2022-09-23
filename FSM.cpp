@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <set>
 
 using namespace std;
 
@@ -27,16 +28,22 @@ bool FSM::run(string input){
         
     }
     string acceptedString = "reject";
+    set<int> acceptedStates;
     for(int i = 0; i < currStates.size(); i++){
         if(currStates[i]->getAccept() == true){
             acceptedString = "accept";
+            acceptedStates.insert(currStates[i]->getNum());
         }
     }
     cout << acceptedString << " ";
-    
-    for(int i = 0; i < currStates.size(); i++){
-        cout << currStates[i]->getNum() << " ";
+    if(acceptedString == "reject"){
+        for(int i = 0; i < currStates.size();i++){
+            acceptedStates.insert(currStates[i]->getNum());
+        }
     }
+
+    for (auto it=acceptedStates.begin(); it != acceptedStates.end(); ++it) cout << ' ' << *it;
+    
     cout << endl;
 
     return true;
