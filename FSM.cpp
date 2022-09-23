@@ -19,9 +19,10 @@ bool FSM::run(string input){
     vector<State *> currStates;
     stateVec[0]->getNextStates(input[0], currStates);
     for(int i = 1; i < input.size(); i++){
-        for(int j = 0; j < currStates.size(); j++){
+        int size = currStates.size();
+        for(int j = 0; j < size; j++){
             currStates[j]->getNextStates(input[i], currStates);
-            currStates.erase(currStates.begin() + j - 1);
+            currStates.erase(currStates.begin() + j);
         }
         
     }
